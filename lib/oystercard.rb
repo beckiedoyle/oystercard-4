@@ -1,5 +1,5 @@
-require 'station'
-require 'journey'
+require_relative '../lib/station'
+require_relative '../lib/journey'
 
 class Oystercard
 attr_reader :balance, :MINIMUM_FARE, :entry_station, :exit_station, :journey, :journeys
@@ -20,10 +20,12 @@ MAX_LIMIT = 90
 
   def touch_in(station)
     raise ("You need at least #{@MINIMUM_FARE} to touch in") if under_fare?
+    journey.start_journey(station)
   end
 
   def touch_out(station)
     self.deduct(@MINIMUM_FARE)
+    @journeys.push(journey.finish_journey(station))
   end
 
   private

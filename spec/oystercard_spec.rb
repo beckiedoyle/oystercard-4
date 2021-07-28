@@ -19,9 +19,9 @@ describe Oystercard do
     expect{ subject.top_up 1 }.to raise_error "Reached max limit of £90"
   end
 
-  it 'is in journey' do
-    expect(subject).not_to be_in_journey
-  end 
+  # it 'is in journey' do
+  #   expect(subject).not_to be_in_journey
+  # end 
 
   it 'can touch in' do
     subject.top_up(30)
@@ -47,27 +47,27 @@ describe Oystercard do
     expect{subject.touch_out(exit_station)}.to change{subject.balance}.by(-subject.MINIMUM_FARE)
   end
 
-  it 'stores the entry station' do
-    subject.top_up(40)
-    subject.touch_in(entry_station)
-    expect(subject.entry_station).to eq(entry_station)
-  end
+  # it 'stores the entry station' do
+  #   subject.top_up(40)
+  #   subject.touch_in(entry_station)
+  #   expect(subject.entry_station).to eq(entry_station)
+  # end
 
-  it 'stores an exit station' do
-    subject.top_up(30)
-    subject.touch_in(entry_station)
-    subject.touch_out(exit_station)
-    expect(subject.exit_station).to eq(exit_station)
-  end
+  # it 'stores an exit station' do
+  #   subject.top_up(30)
+  #   subject.touch_in(entry_station)
+  #   subject.touch_out(exit_station)
+  #   expect(subject.exit_station).to eq(exit_station)
+  # end
 
   it 'checks if card has default of no journeys' do
     expect(subject.journeys).to be_empty
   end
 
-  it 'checks if journeys stores journey' do
-    subject.top_up(30)
-    subject.touch_in(entry_station)
-    subject.touch_out(exit_station)
-    expect(subject.journeys).to include(subject.journey)
-  end
+  # it 'checks if journeys stores journey' do
+  #   subject.top_up(30)
+  #   subject.touch_in(entry_station)
+  #   subject.touch_out(exit_station)
+  #   expect(subject.journeys).to include(subject.journey)
+  # end
 end
