@@ -1,43 +1,29 @@
+require 'station'
+require 'journey'
+
 class Oystercard
 attr_reader :balance, :MINIMUM_FARE, :entry_station, :exit_station, :journey, :journeys
 
 MAX_LIMIT = 90
 
-  def initialize(balance=0, minimum_fare=1)
+  def initialize(balance=0, minimum_fare=1, journey = Journey.new)
     @balance = balance
     @MINIMUM_FARE = minimum_fare
-    @entry_station
-    @exit_station
-    @journey
+    @journey = journey
     @journeys = []
   end
-
-  
 
   def top_up(amount)
     fail "Reached max limit of £90" if full?
     @balance += amount
   end
 
-  def in_journey?
-    !!@entry_station
-  end
-
   def touch_in(station)
     raise ("You need at least #{@MINIMUM_FARE} to touch in") if under_fare?
-    @entry_station = station
   end
 
   def touch_out(station)
     self.deduct(@MINIMUM_FARE)
-    @exit_station = station
-    create_journey(@entry_station, @exit_station)
-    @entry_station = nil
-  end
-
-  def create_journey(entry, exit)
-    @journey = { @entry_station => @exit_station }
-    @journeys.push(@journey)
   end
 
   private
