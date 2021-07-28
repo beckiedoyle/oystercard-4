@@ -1,5 +1,5 @@
 class Oystercard
-attr_reader :balance, :MINIMUM_FARE, :entry_station
+attr_reader :balance, :MINIMUM_FARE, :entry_station, :exit_station, :journey, :journeys
 
 MAX_LIMIT = 90
 
@@ -7,7 +7,12 @@ MAX_LIMIT = 90
     @balance = balance
     @MINIMUM_FARE = minimum_fare
     @entry_station
+    @exit_station
+    @journey
+    @journeys = []
   end
+
+  
 
   def top_up(amount)
     fail "Reached max limit of £90" if full?
@@ -23,9 +28,16 @@ MAX_LIMIT = 90
     @entry_station = station
   end
 
-  def touch_out
+  def touch_out(station)
     self.deduct(@MINIMUM_FARE)
+    @exit_station = station
+    create_journey(@entry_station, @exit_station)
     @entry_station = nil
+  end
+
+  def create_journey(entry, exit)
+    @journey = { @entry_station => @exit_station }
+    @journeys.push(@journey)
   end
 
   private
