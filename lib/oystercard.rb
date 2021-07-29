@@ -1,5 +1,5 @@
-require_relative '../lib/station'
-require_relative '../lib/journey'
+require_relative 'station.rb'
+require_relative 'journey.rb'
 
 class Oystercard
 attr_reader :balance, :MINIMUM_FARE, :entry_station, :exit_station, :journey, :journeys
@@ -9,6 +9,8 @@ MAX_LIMIT = 90
   def initialize(balance=0, minimum_fare=1, journey = Journey.new)
     @balance = balance
     @MINIMUM_FARE = minimum_fare
+    @entry_station
+    @exit_station
     @journey = journey
     @journeys = []
   end
